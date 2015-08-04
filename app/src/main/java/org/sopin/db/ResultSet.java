@@ -2,22 +2,17 @@ package org.sopin.db;
 
 import android.database.Cursor;
 
-import org.sopin.myenglish.WordEntity;
+public class ResultSet {
 
-
-public class ResultSet
-{
-
-    protected WordEntity prototype;
+    protected EntityInterface prototype;
 
     protected Cursor cursor;
 
-    public ResultSet(WordEntity prototype) {
-
+    public ResultSet(EntityInterface prototype) {
         this.prototype = prototype;
     }
 
-    public WordEntity getPrototype() {
+    public EntityInterface getPrototype() {
         return this.prototype;
     }
 
@@ -26,23 +21,14 @@ public class ResultSet
         this.cursor.moveToFirst();
     }
 
-    public WordEntity fetch() {
-
-        prototype.setId(cursor.getInt(0));
-        prototype.setWord(cursor.getString(1));
-        prototype.setTranslate(cursor.getString(2));
-        prototype.setIsPhrase(cursor.getInt(3) > 0);
-        prototype.setLevel(cursor.getInt(4));
-        prototype.setLearnt(cursor.getInt(5) > 0);
-        prototype.setStatus(cursor.getInt(6));
-
-        return this.prototype;
+    public EntityInterface fetch() {
+        prototype.hydrate(cursor);
+        return prototype;
     }
 
     public boolean isFirst() {
         return cursor.isFirst();
     }
-
 
     public boolean isLast() {
         return cursor.isLast();

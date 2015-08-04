@@ -1,13 +1,14 @@
-package org.sopin.db;
+package org.sopin.myenglish;
 
 import android.content.Context;
 
-import org.sopin.myenglish.QuizEntity;
-import org.sopin.myenglish.WordsDBOpenHelper;
+import org.sopin.db.ResultSet;
+import org.sopin.db.Sql;
+import org.sopin.db.TableGateway;
 
 public class QuizTableFactory {
 
-    static public Table createService(Context context)
+    static public WordTable createService(Context context)
     {
 
         WordsDBOpenHelper dbHelper = new WordsDBOpenHelper(context);
@@ -16,11 +17,11 @@ public class QuizTableFactory {
 
         ResultSet resultSet = new ResultSet(prototype);
 
-        Sql sql = new Sql();
+        Sql sql = new Sql(new String[] {});
 
         TableGateway tableGateway = new TableGateway(dbHelper, resultSet,
                 WordsDBOpenHelper.FeedEntry.TABLE_NAME);
 
-        return new Table(tableGateway, sql);
+        return new WordTable(tableGateway, sql);
     }
 }

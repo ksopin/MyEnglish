@@ -2,9 +2,6 @@ package org.sopin.db;
 
 import org.sopin.myenglish.WordsDBOpenHelper;
 
-/**
- * Created by konstantin on 7/25/15.
- */
 public class Sql {
 
     protected String[] columns;
@@ -22,16 +19,8 @@ public class Sql {
     protected String limit;
 
 
-    public Sql () {
-        setColumns(new String[]{
-                WordsDBOpenHelper.FeedEntry._ID,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_WORD,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_TRANSLATE,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_IS_PHRASE,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEVEL,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEARNT,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_STATUS,
-        });
+    public Sql (String[] columns) {
+        setColumns(columns);
     }
 
     public void setColumns(String[] columns) {

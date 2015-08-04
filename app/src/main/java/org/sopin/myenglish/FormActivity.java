@@ -7,9 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import org.sopin.db.Table;
-import org.sopin.db.WordTableFactory;
-
 
 public class FormActivity extends Activity {
 
@@ -38,7 +35,7 @@ public class FormActivity extends Activity {
 
     public boolean addItem(View view) {
 
-        Table table = WordTableFactory.createService(getBaseContext());
+        WordTable table = WordTableFactory.createService(getBaseContext());
 
         WordEntity wordEntity = (WordEntity) table.getNew();
 

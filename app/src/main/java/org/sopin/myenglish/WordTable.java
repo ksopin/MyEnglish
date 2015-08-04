@@ -1,18 +1,21 @@
-package org.sopin.db;
+package org.sopin.myenglish;
 
 import android.content.ContentValues;
 
+import org.sopin.db.ResultSet;
+import org.sopin.db.Sql;
+import org.sopin.db.TableGateway;
 import org.sopin.myenglish.WordEntity;
 import org.sopin.myenglish.WordsDBOpenHelper;
 
-public class Table
+public class WordTable
 {
 
     protected Sql sql;
 
     protected TableGateway tableGateway;
 
-    public Table(TableGateway tableGateway, Sql sql)
+    public WordTable(TableGateway tableGateway, Sql sql)
     {
         this.tableGateway = tableGateway;
         this.sql = sql;

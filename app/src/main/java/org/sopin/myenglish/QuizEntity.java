@@ -1,7 +1,12 @@
 package org.sopin.myenglish;
 
 
-public class QuizEntity {
+import android.database.Cursor;
+
+import org.sopin.db.EntityInterface;
+
+public class QuizEntity implements EntityInterface
+{
 
     private String word;
     private String correctOption;
@@ -39,4 +44,7 @@ public class QuizEntity {
         options[options.length] = option;
     }
 
+    public void hydrate (Cursor cursor) {
+        setWord(cursor.getString(1));
+    }
 }

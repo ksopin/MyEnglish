@@ -7,8 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import org.sopin.db.ResultSet;
-import org.sopin.db.Table;
-import org.sopin.db.WordTableFactory;
 
 
 public class ViewActivity extends Activity {
@@ -19,7 +17,7 @@ public class ViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Table table = WordTableFactory.createService(getBaseContext());
+        WordTable table = WordTableFactory.createService(getBaseContext());
 
         resultSet = table.fetchRecentAdded();
 

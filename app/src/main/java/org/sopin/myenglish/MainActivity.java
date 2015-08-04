@@ -7,8 +7,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import org.sopin.db.ResultSet;
-import org.sopin.db.Table;
-import org.sopin.db.WordTableFactory;
+
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
@@ -20,7 +19,7 @@ public class MainActivity extends Activity {
         ArrayList<String> items = new ArrayList<String>();
         ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
-        Table table = WordTableFactory.createService(getBaseContext());
+        WordTable table = WordTableFactory.createService(getBaseContext());
 
         ResultSet result = table.fetchRecentAdded();
 
