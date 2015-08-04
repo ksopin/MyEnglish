@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MyEnglish</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_form">Form</string>
+    <string name="action_main">Main</string>
+    <string name="action_untranslated">Untranslated</string>
+    <string name="title_activity_form">Form</string>
+    <string name="title_activity_untranslated">Untranslated</string>
+    <string name="title_activity_view">ViewActivity</string>
+    <string name="action_carousel">Carousel</string>
+</resources>
