@@ -24,7 +24,7 @@ public class ViewActivity extends Activity {
         setContentView(R.layout.activity_view);
 
         if (resultSet.getCount() > 0) {
-            WordEntity word = resultSet.fetch();
+            WordEntity word = (WordEntity) resultSet.fetch();
             this.exportWordToView(word);
         }
     }
@@ -71,7 +71,7 @@ public class ViewActivity extends Activity {
             resultSet.moveToPrevious();
         }
 
-        WordEntity word = resultSet.fetch();
+        WordEntity word = (WordEntity) resultSet.fetch();
         this.exportWordToView(word);
     }
 
@@ -82,7 +82,7 @@ public class ViewActivity extends Activity {
         } else {
             resultSet.moveToNext();
         }
-        WordEntity word = resultSet.fetch();
+        WordEntity word = (WordEntity) resultSet.fetch();
         this.exportWordToView(word);
     }
 }

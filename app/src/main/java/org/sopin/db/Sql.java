@@ -19,6 +19,10 @@ public class Sql {
     protected String limit;
 
 
+    public Sql () {
+
+    }
+
     public Sql (String[] columns) {
         setColumns(columns);
     }

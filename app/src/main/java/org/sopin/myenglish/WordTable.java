@@ -2,28 +2,17 @@ package org.sopin.myenglish;
 
 import android.content.ContentValues;
 
+import org.sopin.db.AbstractTable;
 import org.sopin.db.ResultSet;
 import org.sopin.db.Sql;
 import org.sopin.db.TableGateway;
-import org.sopin.myenglish.WordEntity;
-import org.sopin.myenglish.WordsDBOpenHelper;
 
-public class WordTable
-{
 
-    protected Sql sql;
-
-    protected TableGateway tableGateway;
+public class WordTable extends AbstractTable {
 
     public WordTable(TableGateway tableGateway, Sql sql)
     {
-        this.tableGateway = tableGateway;
-        this.sql = sql;
-    }
-
-    public Object getNew()
-    {
-        return tableGateway.getResultSetPrototype();
+        super(tableGateway, sql);
     }
 
     public WordEntity getById(Integer id) {
@@ -37,9 +26,28 @@ public class WordTable
         return this.tableGateway.select(this.sql);
     }
 
+    public ResultSet fetchQuizOptions(Integer id) {
+
+        sql.setSelection("word != '' AND translate != '' AND " + WordsDBOpenHelper.FeedEntry._ID
+                + " != ? AND level < 10");
+        sql.setSelectionArgs(new String[]{id.toString()});
+        sql.setOrderBy("RANDOM()");
+        sql.setLimit("3");
+
+        return this.tableGateway.select(this.sql);
+    }
+
     public ResultSet fetchRecentAdded() {
         this.sql.setSelection("word != '' AND translate != ''");
         this.sql.setOrderBy(WordsDBOpenHelper.FeedEntry._ID + " DESC");
+        this.sql.setLimit("30");
+
+        return this.tableGateway.select(this.sql);
+    }
+
+    public ResultSet fetchRand() {
+        this.sql.setSelection("word != '' AND translate != '' AND level < 10");
+        this.sql.setOrderBy("RANDOM()");
         this.sql.setLimit("30");
 
         return this.tableGateway.select(this.sql);
@@ -49,28 +57,4 @@ public class WordTable
         this.sql.setSelection("translate = '' OR word = ''");
         return this.tableGateway.select(this.sql);
     }
-
-    public void save(WordEntity word) {
-
-        ContentValues newValues = new ContentValues();
-        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_WORD, word.getWord());
-        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_TRANSLATE, word.getTranslate());
-        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_IS_PHRASE, word.getIsPhrase());
-        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEVEL, word.getLevel());
-        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEARNT, word.getLearnt());
-        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_STATUS, word.getStatus());
-
-        if (word.getId() != null) {
-            this.tableGateway.update(newValues, word.getId().toString());
-        } else {
-            this.tableGateway.insert(newValues);
-        }
-
-
-    }
-
-    public void delete(WordEntity word) {
-        this.tableGateway.delete(word.getId().toString());
-    }
-
 }

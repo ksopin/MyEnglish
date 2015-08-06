@@ -5,6 +5,6 @@ import android.content.ContentValues;
 /**
  * Created by konstantin on 8/4/15.
  */
-public interface ExtractableInterface {
+public interface ExtractableInterface extends EntityInterface {
     public ContentValues extract();
 }

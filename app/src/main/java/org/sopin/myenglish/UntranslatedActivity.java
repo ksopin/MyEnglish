@@ -26,7 +26,7 @@ public class UntranslatedActivity extends Activity {
 
         if (result.getCount() > 0) {
             do {
-                WordEntity wordEntity = result.fetch();
+                WordEntity wordEntity = (WordEntity) result.fetch();
                 items.add(items.size(), wordEntity.getWord() + " - " + wordEntity.getTranslate());
             } while (result.moveToNext());
 

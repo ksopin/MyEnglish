@@ -12,14 +12,21 @@ public class TableGateway {
 
     protected String tableName;
 
-    public TableGateway(SQLiteOpenHelper dbHelper, ResultSet resultSet, String tableName) {
+    protected String key;
+
+    public TableGateway(SQLiteOpenHelper dbHelper, ResultSet resultSet, String tableName, String key) {
         this.dbHelper = dbHelper;
         this.resultSet = resultSet;
         this.tableName = tableName;
+        this.key = key;
     }
 
-    public Object getResultSetPrototype() {
+    public EntityInterface getResultSetPrototype() {
         return this.resultSet.getPrototype();
+    }
+
+    public String getTableName() {
+        return tableName;
     }
 
     public ResultSet select(Sql sql) {
@@ -33,18 +40,24 @@ public class TableGateway {
         return this.resultSet;
     }
 
+    public ResultSet select(String sql, String[] args) {
+        Cursor cursor = this.dbHelper.getReadableDatabase().rawQuery(sql, args);
+        this.resultSet.setCursor(cursor);
+        return this.resultSet;
+    }
+
     public boolean insert(ContentValues newValues) {
         this.dbHelper.getWritableDatabase().insert(this.tableName, null, newValues);
         return true;
     }
 
     public boolean update(ContentValues newValues, String id) {
-        this.dbHelper.getWritableDatabase().update(this.tableName, newValues, "id = ?", new String[]{id});
+        this.dbHelper.getWritableDatabase().update(this.tableName, newValues, key + " = ?", new String[]{id});
         return true;
     }
 
     public boolean delete(String id) {
-        this.dbHelper.getWritableDatabase().delete(this.tableName, "id = ?", new String[]{id});
+        this.dbHelper.getWritableDatabase().delete(this.tableName, key + " = ?", new String[]{id});
         return true;
     }
 

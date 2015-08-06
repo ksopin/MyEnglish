@@ -29,7 +29,7 @@ public class WordTableFactory {
         });
 
         TableGateway tableGateway = new TableGateway(dbHelper, resultSet,
-                WordsDBOpenHelper.FeedEntry.TABLE_NAME);
+                WordsDBOpenHelper.FeedEntry.TABLE_NAME, WordsDBOpenHelper.FeedEntry._ID);
 
         return new WordTable(tableGateway, sql);
     }

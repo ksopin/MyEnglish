@@ -38,6 +38,9 @@ public class MenuHelper {
             case R.id.action_untranslated:
                 intent = new Intent(context, UntranslatedActivity.class);
                 break;
+            case R.id.action_quiz:
+                intent = new Intent(context, QuizActivity.class);
+                break;
             case R.id.action_settings:
                 return true;
             default:
