@@ -7,26 +7,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.sopin.db.ResultSet;
 
 
-public class ViewActivity extends Activity {
+public class CarouselActivity extends Activity {
+
+    private ResultSet resultSet;
 
     private WordTable table;
-
-    private WordEntity word;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view);
-        Integer wordId = (Integer)getIntent().getExtras().get("wordId");
 
         table = WordTableFactory.createService(getBaseContext());
-        word = table.getById(wordId);
-        this.exportWordToView(word);
+
+        resultSet = table.fetchRecentAdded();
+
+        setContentView(R.layout.activity_carousel);
+
+        if (resultSet.getCount() > 0) {
+            WordEntity word = (WordEntity) resultSet.fetch();
+            this.exportWordToView(word);
+        }
     }
 
     @Override
@@ -43,9 +47,9 @@ public class ViewActivity extends Activity {
 
                 break;
             case R.id.action_delete:
-                //WordEntity word = (WordEntity) resultSet.fetch();
+                WordEntity word = (WordEntity) resultSet.fetch();
                 table.delete(word);
-                Intent intent = new Intent(this, UntranslatedActivity.class);
+                Intent intent = new Intent(this, ViewActivity.class);
                 startActivity(intent);
                 break;
 
@@ -74,5 +78,26 @@ public class ViewActivity extends Activity {
 
     }
 
+    public void toPrev(View view) {
 
+        if (resultSet.isFirst()) {
+            resultSet.moveToLast();
+        } else {
+            resultSet.moveToPrevious();
+        }
+
+        WordEntity word = (WordEntity) resultSet.fetch();
+        this.exportWordToView(word);
+    }
+
+    public void toNext(View view) {
+
+        if (resultSet.isLast()) {
+            resultSet.moveToFirst();
+        } else {
+            resultSet.moveToNext();
+        }
+        WordEntity word = (WordEntity) resultSet.fetch();
+        this.exportWordToView(word);
+    }
 }

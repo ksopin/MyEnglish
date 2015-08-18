@@ -1,11 +1,16 @@
 package org.sopin.myenglish;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.sopin.db.ResultSet;
 
@@ -17,17 +22,25 @@ public class UntranslatedActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<String> items = new ArrayList<String>();
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        ArrayList<WordEntity> items = new ArrayList<WordEntity>();
+        ArrayAdapter<WordEntity> aa = new ArrayAdapter<WordEntity>(this, android.R.layout.simple_list_item_1, items);
 
         WordTable table = WordTableFactory.createService(getBaseContext());
 
         ResultSet result = table.fetchNotTranslated();
 
+        Integer i = 0;
+
         if (result.getCount() > 0) {
             do {
                 WordEntity wordEntity = (WordEntity) result.fetch();
-                items.add(items.size(), wordEntity.getWord() + " - " + wordEntity.getTranslate());
+
+                //wordEntity = wordEntity.clone();
+
+
+                items.add(i, wordEntity);
+                i++;
+
             } while (result.moveToNext());
 
             aa.notifyDataSetChanged();
@@ -37,6 +50,24 @@ public class UntranslatedActivity extends Activity {
 
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(aa);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //String item = ((TextView) view).getText().toString() + " + " + position + " : " + id;
+                WordEntity wordItem = (WordEntity) ((ListView) findViewById(R.id.listView))
+                        .getAdapter()
+                        .getItem(position);
+
+                //String item = wordItem.toString();
+
+                //Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getBaseContext(), ViewActivity.class);
+                intent.putExtra("wordId", wordItem.getId());
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -55,4 +86,6 @@ public class UntranslatedActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

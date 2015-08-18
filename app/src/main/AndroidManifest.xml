@@ -39,6 +39,10 @@
             android:name=".QuizActivity"
             android:label="@string/title_activity_quiz" >
         </activity>
+        <activity
+            android:name=".CarouselActivity"
+            android:label="@string/title_activity_carousel" >
+        </activity>
     </application>
 
 </manifest>

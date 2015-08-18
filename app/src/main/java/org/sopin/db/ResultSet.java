@@ -22,8 +22,9 @@ public class ResultSet {
     }
 
     public EntityInterface fetch() {
-        prototype.hydrate(cursor);
-        return prototype;
+        EntityInterface clone = (EntityInterface) prototype.clone();
+        clone.hydrate(cursor);
+        return clone;
     }
 
     public boolean isFirst() {

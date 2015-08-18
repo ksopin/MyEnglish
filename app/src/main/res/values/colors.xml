@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="color_default">#FFFFFFFF</color>
+    <color name="color_success">#FF22FF0B</color>
+    <color name="color_warning">#FFE6DA02</color>
+    <color name="color_error">#FFFF2000</color>
+
+    <color name="color_level_0">#fffeff90</color>
+    <color name="color_level_1">#ff64fff5</color>
+    <color name="color_level_2">#ff92ff8a</color>
+    <color name="color_level_3">#ffff9efa</color>
+    <color name="color_level_4">#fffff967</color>
+    <color name="color_level_5">#ff5e96ff</color>
+    <color name="color_level_6">#ff5bff44</color>
+    <color name="color_level_7">#ffffc10a</color>
+    <color name="color_level_8">#ffff0ab9</color>
+    <color name="color_level_9">#ff35398f</color>
+    <color name="color_level_10">#ff0d5904</color>
+
+</resources>

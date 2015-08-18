@@ -17,7 +17,23 @@ public class WordTable extends AbstractTable {
 
     public WordEntity getById(Integer id) {
 
-        WordEntity word = new WordEntity();
+        sql.setSelection(WordsDBOpenHelper.FeedEntry._ID + " = ?");
+        sql.setSelectionArgs(new String[]{id.toString()});
+
+        //ResultSet resultSet = tableGateway.select(this.sql);
+
+        WordEntity word = (WordEntity) tableGateway.select(this.sql).fetch();
+
+
+//        WordEntity word = new WordEntity();
+//
+//        word.setId(1);
+//        word.setWord("test");
+//        word.setTranslate("translate");
+//        word.setLevel(6);
+//        word.setLearnt(false);
+//        word.setIsPhrase(false);
+//        word.setStatus(1);
 
         return word;
     }

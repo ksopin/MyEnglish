@@ -10,7 +10,6 @@ import org.sopin.db.HydrateableInterface;
 public class WordEntity
         implements EntityInterface, HydrateableInterface, ExtractableInterface
 
-
 {
 
     private Integer id;
@@ -20,6 +19,9 @@ public class WordEntity
     private Integer level;
     private Boolean learnt;
     private Integer status;
+
+
+    public WordEntity () {}
 
     public Integer getId() {
         return id;
@@ -97,4 +99,19 @@ public class WordEntity
         newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_STATUS, getStatus());
         return newValues;
     }
+
+    @Override
+    public String toString() {
+        return this.id + ": " + this.word + " - " + this.translate + " ("+this.level+")";
+    }
+
+    public Object clone()
+    {
+        return new WordEntity(this);
+    }
+
+    protected WordEntity(WordEntity another) {
+
+    }
+
 }

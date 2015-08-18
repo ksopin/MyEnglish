@@ -6,7 +6,7 @@
         android:orderInCategory="2" android:showAsAction="never" />
     <item android:id="@+id/action_untranslated" android:title="@string/action_untranslated"
         android:orderInCategory="3" android:showAsAction="never" />
-    <item android:id="@+id/action_view" android:title="@string/action_carousel"
+    <item android:id="@+id/action_carousel" android:title="@string/action_carousel"
         android:orderInCategory="4" android:showAsAction="never" />
     <item android:id="@+id/action_quiz" android:title="@string/action_quiz"
         android:orderInCategory="5" android:showAsAction="never" />

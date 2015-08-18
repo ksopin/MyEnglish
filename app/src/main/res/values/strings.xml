@@ -10,28 +10,14 @@
     <string name="action_view">Carousel</string>
     <string name="action_quiz">Quiz</string>
 
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+
     <string name="title_activity_main">Main</string>
     <string name="title_activity_form">Form</string>
     <string name="title_activity_untranslated">Untranslated</string>
-    <string name="title_activity_view">Carousel</string>
+    <string name="title_activity_view">View</string>
     <string name="title_activity_quiz">Quiz</string>
-
-
-    <string name="color_default">#FFFFFFFF</string>
-    <string name="color_success">#FF22FF0B</string>
-    <string name="color_warning">#FFE6DA02</string>
-    <string name="color_error">#FFFF2000</string>
-
-    <string name="color_level_0">#FFFF2000</string>
-    <string name="color_level_1">#FFFF2000</string>
-    <string name="color_level_2">#FFFF2000</string>
-    <string name="color_level_3">#FFFF2000</string>
-    <string name="color_level_4">#FFFF2000</string>
-    <string name="color_level_5">#FFFF2000</string>
-    <string name="color_level_6">#FFFF2000</string>
-    <string name="color_level_7">#FFFF2000</string>
-    <string name="color_level_8">#FFFF2000</string>
-    <string name="color_level_9">#FFFF2000</string>
-    <string name="color_level_10">#FFFF2000</string>
+    <string name="title_activity_carousel">Carousel</string>
 
 </resources>
