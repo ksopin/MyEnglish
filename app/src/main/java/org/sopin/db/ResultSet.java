@@ -12,6 +12,19 @@ public class ResultSet {
         this.prototype = prototype;
     }
 
+    public void setPrototype(EntityInterface prototype) {
+        this.prototype = prototype;
+    }
+
+    protected ResultSet (ResultSet another) {
+        //another.setCursor(cursor);
+        another.setPrototype(prototype);
+    }
+
+    public ResultSet clone () {
+        return new ResultSet(prototype);
+    }
+
     public EntityInterface getPrototype() {
         return this.prototype;
     }
