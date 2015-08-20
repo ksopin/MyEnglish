@@ -16,10 +16,7 @@ public class ResultSet {
         this.prototype = prototype;
     }
 
-    protected ResultSet (ResultSet another) {
-        //another.setCursor(cursor);
-        another.setPrototype(prototype);
-    }
+
 
     public ResultSet clone () {
         return new ResultSet(prototype);
@@ -64,7 +61,15 @@ public class ResultSet {
         return cursor.moveToLast();
     }
 
+    public boolean moveToPosition(Integer position) {
+        return cursor.moveToPosition(position);
+    }
+
     public Integer getCount() {
         return cursor.getCount();
+    }
+
+    public Integer getPosition() {
+        return cursor.getPosition();
     }
 }

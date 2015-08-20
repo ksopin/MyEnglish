@@ -108,6 +108,7 @@ public class QuizActivity extends Activity {
 
         if (quiz.isLast()) {
             quiz.moveToFirst();
+            Toast.makeText(getBaseContext(), "Check Point", Toast.LENGTH_SHORT).show();
         } else {
             quiz.moveToNext();
         }

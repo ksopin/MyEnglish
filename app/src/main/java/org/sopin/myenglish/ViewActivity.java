@@ -38,14 +38,16 @@ public class ViewActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_edit:
-
+                intent = new Intent(this, FormActivity.class);
+                intent.putExtra("wordId", word.getId());
+                startActivity(intent);
                 break;
             case R.id.action_delete:
-                //WordEntity word = (WordEntity) resultSet.fetch();
                 table.delete(word);
-                Intent intent = new Intent(this, UntranslatedActivity.class);
+                intent = new Intent(this, UntranslatedActivity.class);
                 startActivity(intent);
                 break;
 

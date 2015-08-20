@@ -1,12 +1,8 @@
 package org.sopin.myenglish;
 
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 public class QuizEntity {
-
 
     private String word;
     private String correctOption;

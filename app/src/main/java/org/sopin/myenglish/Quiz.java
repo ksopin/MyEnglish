@@ -1,8 +1,5 @@
 package org.sopin.myenglish;
 
-
-import android.database.Cursor;
-
 import org.sopin.db.ResultSet;
 
 import java.util.ArrayList;
@@ -26,15 +23,12 @@ public class Quiz {
             return;
         }
 
-        //cursor = 0;
         do {
             WordEntity word = (WordEntity) resultSet.fetch();
             QuizEntity quizEntity = mapQuizEntity(word);
             quizList.add(0, quizEntity);
-            //cursor++;
         } while (resultSet.moveToNext());
         cursor = 0;
-
     }
 
 
@@ -46,7 +40,6 @@ public class Quiz {
         quizEntity.setCorrectOption(word.getTranslate());
 
         quizEntity.addOption(word.getTranslate());
-
 
         ResultSet result = table.fetchQuizOptions(word.getId());
 

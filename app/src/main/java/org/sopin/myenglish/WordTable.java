@@ -1,7 +1,5 @@
 package org.sopin.myenglish;
 
-import android.content.ContentValues;
-
 import org.sopin.db.AbstractTable;
 import org.sopin.db.ResultSet;
 import org.sopin.db.Sql;
