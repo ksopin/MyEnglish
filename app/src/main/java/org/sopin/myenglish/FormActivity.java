@@ -10,10 +10,36 @@ import android.widget.EditText;
 
 public class FormActivity extends Activity {
 
+    WordEntity word;
+
+    WordTable table;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+
+        table = WordTableFactory.createService(getBaseContext());
+
+        Integer wordId = (Integer)getIntent().getExtras().get("wordId");
+        if(wordId > 0){
+            word = table.getById(wordId);
+            bindForm();
+        } else {
+            word = (WordEntity) table.getNew();
+            word.setLevel(0);
+            word.setLearnt(false);
+            word.setStatus(0);
+        }
+
+    }
+
+    private void bindForm() {
+        EditText editWord = (EditText) findViewById(R.id.editWord);
+        editWord.setText(word.getWord());
+
+        EditText editTranslate = (EditText) findViewById(R.id.editTranslate);
+        editTranslate.setText(word.getTranslate());
     }
 
     @Override
@@ -35,24 +61,21 @@ public class FormActivity extends Activity {
 
     public boolean addItem(View view) {
 
-        WordTable table = WordTableFactory.createService(getBaseContext());
+        //WordTable table = WordTableFactory.createService(getBaseContext());
 
-        WordEntity wordEntity = (WordEntity) table.getNew();
+        //WordEntity wordEntity = (WordEntity) table.getNew();
 
         EditText editWord = (EditText) findViewById(R.id.editWord);
-        String word = editWord.getText().toString();
+        String wordString = editWord.getText().toString();
 
         EditText editTranslate = (EditText) findViewById(R.id.editTranslate);
         String translate = editTranslate.getText().toString();
 
-        wordEntity.setWord(word);
-        wordEntity.setTranslate(translate);
-        wordEntity.setIsPhrase(false);
-        wordEntity.setLevel(0);
-        wordEntity.setLearnt(false);
-        wordEntity.setStatus(0);
+        word.setWord(wordString);
+        word.setTranslate(translate);
+        word.setIsPhrase(false);
 
-        table.save(wordEntity);
+        table.save(word);
 
         MenuHelper menuHelper = new MenuHelper(this, R.id.action_form);
         menuHelper.startActivity(R.id.action_main);

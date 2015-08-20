@@ -9,11 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import org.sopin.db.ResultSet;
-
 import java.util.ArrayList;
 
 
@@ -34,10 +30,6 @@ public class UntranslatedActivity extends Activity {
         if (result.getCount() > 0) {
             do {
                 WordEntity wordEntity = (WordEntity) result.fetch();
-
-                //wordEntity = wordEntity.clone();
-
-
                 items.add(i, wordEntity);
                 i++;
 
@@ -54,14 +46,9 @@ public class UntranslatedActivity extends Activity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //String item = ((TextView) view).getText().toString() + " + " + position + " : " + id;
                 WordEntity wordItem = (WordEntity) ((ListView) findViewById(R.id.listView))
                         .getAdapter()
                         .getItem(position);
-
-                //String item = wordItem.toString();
-
-                //Toast.makeText(getBaseContext(), item, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getBaseContext(), ViewActivity.class);
                 intent.putExtra("wordId", wordItem.getId());
@@ -73,7 +60,6 @@ public class UntranslatedActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }

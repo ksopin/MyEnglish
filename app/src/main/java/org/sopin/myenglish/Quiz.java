@@ -1,8 +1,5 @@
 package org.sopin.myenglish;
 
-
-import android.database.Cursor;
-
 import org.sopin.db.ResultSet;
 
 import java.util.ArrayList;
@@ -11,82 +8,87 @@ import java.util.Random;
 
 public class Quiz {
 
-    private WordEntity wordEntity;
-    private String word;
-    private String correctOption;
-    private ArrayList<String> options;
+
     private WordTable table;
+    private ArrayList<QuizEntity> quizList;
+    private Integer cursor;
 
     public Quiz (WordTable table) {
         this.table = table;
+        quizList = new ArrayList<QuizEntity>();
+
+        ResultSet resultSet = table.fetchRand();
+
+        if (resultSet.getCount() <= 0) {
+            return;
+        }
+
+        do {
+            WordEntity word = (WordEntity) resultSet.fetch();
+            QuizEntity quizEntity = mapQuizEntity(word);
+            quizList.add(0, quizEntity);
+        } while (resultSet.moveToNext());
+        cursor = 0;
     }
 
-    public WordEntity getWordEntity() {
-        return wordEntity;
-    }
 
-    public String getWord() {
-        return word;
-    }
+    private QuizEntity mapQuizEntity(WordEntity word) {
+        QuizEntity quizEntity = new QuizEntity();
 
-    public void setWord(String word) {
-        this.word = word;
-    }
+        quizEntity.setWordEntity(word);
+        quizEntity.setWord(word.getWord());
+        quizEntity.setCorrectOption(word.getTranslate());
 
-    public void setWord(WordEntity word) {
-        wordEntity = word;
-        options = new ArrayList<String>();
-        setWord(word.getWord());
-        setCorrectOption(word.getTranslate());
-        addOption(word.getTranslate());
+        quizEntity.addOption(word.getTranslate());
 
         ResultSet result = table.fetchQuizOptions(word.getId());
 
         if (result.getCount() > 0) {
             do {
                 WordEntity wordEntity = (WordEntity) result.fetch();
-                addOption(wordEntity.getTranslate());
+                quizEntity.addOption(wordEntity.getTranslate());
             } while (result.moveToNext());
         }
 
-        Collections.shuffle(options, new Random(System.nanoTime()));
+        return quizEntity;
     }
 
-    public String getCorrectOption() {
-        return correctOption;
+    public QuizEntity current() {
+        Collections.shuffle(quizList.get(cursor).getOptions(), new Random(System.nanoTime()));
+        return quizList.get(cursor);
     }
 
-    public void setCorrectOption(String correctOption) {
-        this.correctOption = correctOption;
+    public void moveToNext() {
+        cursor++;
     }
 
-    public boolean isCorrect(String value) {
-        return correctOption.equals(value);
+    public void moveToFirst() {
+        cursor = 0;
+        Collections.shuffle(quizList, new Random(System.nanoTime()));
     }
 
-    public ArrayList<String> getOptions() {
-        return options;
+    public boolean isLast() {
+        if (cursor + 1 >= quizList.size()) {
+            return true;
+        }
+        return false;
     }
 
-    public void setOptions(ArrayList<String> options) {
-        this.options = options;
+    public Integer count() {
+        return quizList.size();
     }
 
-    public void addOption(String option) {
-        options.add(0, option);
-    }
-
-    public void levelUp() {
-        if (wordEntity.getLevel() < 10) {
-            wordEntity.setLevel(wordEntity.getLevel() + 1);
-            table.save(wordEntity);
+    public void levelUp(QuizEntity quizEntity) {
+        if (quizEntity.getWordEntity().getLevel() < 10) {
+            quizEntity.getWordEntity().setLevel(quizEntity.getWordEntity().getLevel() + 1);
+            table.save(quizEntity.getWordEntity());
         }
     }
 
-    public void levelDown() {
-        if (wordEntity.getLevel() > 0) {
-            wordEntity.setLevel(wordEntity.getLevel() - 1);
-            table.save(wordEntity);
+    public void levelDown(QuizEntity quizEntity) {
+        if (quizEntity.getWordEntity().getLevel() > 0) {
+            quizEntity.getWordEntity().setLevel(quizEntity.getWordEntity().getLevel() - 1);
+            table.save(quizEntity.getWordEntity());
         }
     }
 }

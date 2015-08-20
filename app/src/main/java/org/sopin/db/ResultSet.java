@@ -12,6 +12,16 @@ public class ResultSet {
         this.prototype = prototype;
     }
 
+    public void setPrototype(EntityInterface prototype) {
+        this.prototype = prototype;
+    }
+
+
+
+    public ResultSet clone () {
+        return new ResultSet(prototype);
+    }
+
     public EntityInterface getPrototype() {
         return this.prototype;
     }
@@ -51,7 +61,15 @@ public class ResultSet {
         return cursor.moveToLast();
     }
 
+    public boolean moveToPosition(Integer position) {
+        return cursor.moveToPosition(position);
+    }
+
     public Integer getCount() {
         return cursor.getCount();
+    }
+
+    public Integer getPosition() {
+        return cursor.getPosition();
     }
 }

@@ -42,15 +42,33 @@ public class CarouselActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        WordEntity word = (WordEntity) resultSet.fetch();
+
         switch (item.getItemId()) {
             case R.id.action_edit:
 
+                Intent intent = new Intent(this, FormActivity.class);
+                intent.putExtra("wordId", word.getId());
+                startActivity(intent);
+
                 break;
             case R.id.action_delete:
-                WordEntity word = (WordEntity) resultSet.fetch();
+
                 table.delete(word);
-                Intent intent = new Intent(this, ViewActivity.class);
-                startActivity(intent);
+
+                Integer position;
+                if (resultSet.isLast()) {
+                    position = 0;
+                } else {
+                    position = resultSet.getPosition();
+                }
+                
+                resultSet = table.fetchRecentAdded();
+                resultSet.moveToPosition(position);
+
+                WordEntity nextWord = (WordEntity) resultSet.fetch();
+                this.exportWordToView(nextWord);
+
                 break;
 
             default:

@@ -29,21 +29,25 @@ public class TableGateway {
         return tableName;
     }
 
+    protected ResultSet mapResultSet(Cursor cursor) {
+        resultSet = resultSet.clone();
+        resultSet.setCursor(cursor);
+        return resultSet;
+    }
+
     public ResultSet select(Sql sql) {
 
         Cursor cursor = this.dbHelper.getReadableDatabase()
                 .query(this.tableName, sql.getColumns(), sql.getSelection(), sql.getSelectionArgs(),
                         sql.getGroupBy(), sql.getHaving(), sql.getOrderBy(), sql.getLimit());
 
-        this.resultSet.setCursor(cursor);
-
-        return this.resultSet;
+        return mapResultSet(cursor);
     }
 
     public ResultSet select(String sql, String[] args) {
         Cursor cursor = this.dbHelper.getReadableDatabase().rawQuery(sql, args);
-        this.resultSet.setCursor(cursor);
-        return this.resultSet;
+
+        return mapResultSet(cursor);
     }
 
     public boolean insert(ContentValues newValues) {

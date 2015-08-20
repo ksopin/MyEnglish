@@ -1,7 +1,5 @@
 package org.sopin.myenglish;
 
-import android.content.ContentValues;
-
 import org.sopin.db.AbstractTable;
 import org.sopin.db.ResultSet;
 import org.sopin.db.Sql;
@@ -20,20 +18,7 @@ public class WordTable extends AbstractTable {
         sql.setSelection(WordsDBOpenHelper.FeedEntry._ID + " = ?");
         sql.setSelectionArgs(new String[]{id.toString()});
 
-        //ResultSet resultSet = tableGateway.select(this.sql);
-
         WordEntity word = (WordEntity) tableGateway.select(this.sql).fetch();
-
-
-//        WordEntity word = new WordEntity();
-//
-//        word.setId(1);
-//        word.setWord("test");
-//        word.setTranslate("translate");
-//        word.setLevel(6);
-//        word.setLearnt(false);
-//        word.setIsPhrase(false);
-//        word.setStatus(1);
 
         return word;
     }
@@ -44,8 +29,8 @@ public class WordTable extends AbstractTable {
 
     public ResultSet fetchQuizOptions(Integer id) {
 
-        sql.setSelection("word != '' AND translate != '' AND " + WordsDBOpenHelper.FeedEntry._ID
-                + " != ? AND level < 10");
+        sql.setSelection("word != '' AND translate != '' AND " +
+                WordsDBOpenHelper.FeedEntry._ID + " != ?");
         sql.setSelectionArgs(new String[]{id.toString()});
         sql.setOrderBy("RANDOM()");
         sql.setLimit("3");
