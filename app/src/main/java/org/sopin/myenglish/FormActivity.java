@@ -21,11 +21,16 @@ public class FormActivity extends Activity {
 
         table = WordTableFactory.createService(getBaseContext());
 
-        Integer wordId = (Integer)getIntent().getExtras().get("wordId");
-        if(wordId > 0){
-            word = table.getById(wordId);
-            bindForm();
-        } else {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if(extras.containsKey("wordId")){
+                Integer wordId = (Integer)getIntent().getExtras().get("wordId");
+                word = table.getById(wordId);
+                bindForm();
+            }
+        }
+
+        if (word == null) {
             word = (WordEntity) table.getNew();
             word.setLevel(0);
             word.setLearnt(false);
