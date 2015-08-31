@@ -15,11 +15,9 @@ public class WordEntity
     private Integer id;
     private String word;
     private String translate;
+    private String context;
     private Boolean isPhrase;
     private Integer level;
-    private Boolean learnt;
-    private Integer status;
-
 
     public WordEntity () {}
 
@@ -47,6 +45,14 @@ public class WordEntity
         this.translate = translate;
     }
 
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
     public Boolean getIsPhrase() {
         return isPhrase;
     }
@@ -63,46 +69,28 @@ public class WordEntity
         this.level = level;
     }
 
-    public Boolean getLearnt() {
-        return learnt;
-    }
-
-    public void setLearnt(Boolean learnt) {
-        this.learnt = learnt;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public void hydrate (Cursor cursor) {
         setId(cursor.getInt(0));
         setWord(cursor.getString(1));
         setTranslate(cursor.getString(2));
-        setIsPhrase(cursor.getInt(3) > 0);
-        setLevel(cursor.getInt(4));
-        setLearnt(cursor.getInt(5) > 0);
-        setStatus(cursor.getInt(6));
+        setContext(cursor.getString(3));
+        setIsPhrase(cursor.getInt(4) > 0);
+        setLevel(cursor.getInt(5));
     }
 
     public ContentValues extract () {
         ContentValues newValues = new ContentValues();
         newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_WORD, getWord());
         newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_TRANSLATE, getTranslate());
+        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_CONTEXT, getContext());
         newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_IS_PHRASE, getIsPhrase());
         newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEVEL, getLevel());
-        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEARNT, getLearnt());
-        newValues.put(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_STATUS, getStatus());
         return newValues;
     }
 
     @Override
     public String toString() {
-        return this.id + ": " + this.word + " - " + this.translate + " ("+this.level+")";
+        return this.word + " - " + this.translate + " ("+this.level+")";
     }
 
     public Object clone()

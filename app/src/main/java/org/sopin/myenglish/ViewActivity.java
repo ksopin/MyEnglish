@@ -40,6 +40,10 @@ public class ViewActivity extends Activity {
 
         Intent intent;
         switch (item.getItemId()) {
+            case R.id.action_main:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
             case R.id.action_edit:
                 intent = new Intent(this, FormActivity.class);
                 intent.putExtra("wordId", word.getId());
@@ -73,6 +77,9 @@ public class ViewActivity extends Activity {
 
         TextView textWordId = (TextView) findViewById(R.id.textWordId);
         textWordId.setText(word.getId().toString());
+
+        TextView textContext = (TextView) findViewById(R.id.textContext);
+        textContext.setText(word.getContext());
 
     }
 

@@ -2,6 +2,7 @@ package org.sopin.myenglish;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 
 public class MenuHelper {
@@ -41,6 +42,7 @@ public class MenuHelper {
             case R.id.action_settings:
                 return true;
             default:
+                Toast.makeText(context, itemId, Toast.LENGTH_SHORT).show();
                 return false;
         }
 

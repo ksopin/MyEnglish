@@ -33,8 +33,6 @@ public class FormActivity extends Activity {
         if (word == null) {
             word = (WordEntity) table.getNew();
             word.setLevel(0);
-            word.setLearnt(false);
-            word.setStatus(0);
         }
 
     }
@@ -45,6 +43,9 @@ public class FormActivity extends Activity {
 
         EditText editTranslate = (EditText) findViewById(R.id.editTranslate);
         editTranslate.setText(word.getTranslate());
+
+        EditText editContext = (EditText) findViewById(R.id.editContext);
+        editContext.setText(word.getContext());
     }
 
     @Override
@@ -66,19 +67,19 @@ public class FormActivity extends Activity {
 
     public boolean addItem(View view) {
 
-        //WordTable table = WordTableFactory.createService(getBaseContext());
-
-        //WordEntity wordEntity = (WordEntity) table.getNew();
-
         EditText editWord = (EditText) findViewById(R.id.editWord);
         String wordString = editWord.getText().toString();
 
         EditText editTranslate = (EditText) findViewById(R.id.editTranslate);
         String translate = editTranslate.getText().toString();
 
-        word.setWord(wordString);
+        EditText editContext = (EditText) findViewById(R.id.editContext);
+        String context = editContext.getText().toString();
+
+        word.setWord(wordString.trim());
         word.setTranslate(translate);
-        word.setIsPhrase(false);
+        word.setContext(context);
+        word.setIsPhrase(wordString.trim().contains(" "));
 
         table.save(word);
 

@@ -22,10 +22,9 @@ public class WordTableFactory {
                 WordsDBOpenHelper.FeedEntry._ID,
                 WordsDBOpenHelper.FeedEntry.COLUMN_NAME_WORD,
                 WordsDBOpenHelper.FeedEntry.COLUMN_NAME_TRANSLATE,
+                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_CONTEXT,
                 WordsDBOpenHelper.FeedEntry.COLUMN_NAME_IS_PHRASE,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEVEL,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEARNT,
-                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_STATUS,
+                WordsDBOpenHelper.FeedEntry.COLUMN_NAME_LEVEL
         });
 
         TableGateway tableGateway = new TableGateway(dbHelper, resultSet,

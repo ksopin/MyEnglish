@@ -23,7 +23,7 @@ public class CarouselActivity extends Activity {
 
         table = WordTableFactory.createService(getBaseContext());
 
-        resultSet = table.fetchRecentAdded();
+        resultSet = table.fetchCarouselList();
 
         setContentView(R.layout.activity_carousel);
 
@@ -44,10 +44,17 @@ public class CarouselActivity extends Activity {
 
         WordEntity word = (WordEntity) resultSet.fetch();
 
+        Intent intent;
+
         switch (item.getItemId()) {
+            case R.id.action_main:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.action_edit:
 
-                Intent intent = new Intent(this, FormActivity.class);
+                intent = new Intent(this, FormActivity.class);
                 intent.putExtra("wordId", word.getId());
                 startActivity(intent);
 
@@ -93,6 +100,9 @@ public class CarouselActivity extends Activity {
 
         TextView textWordId = (TextView) findViewById(R.id.textWordId);
         textWordId.setText(word.getId().toString());
+
+        TextView textContext = (TextView) findViewById(R.id.textContext);
+        textContext.setText(word.getContext());
 
     }
 

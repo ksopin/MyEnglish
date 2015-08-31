@@ -79,16 +79,16 @@ public class Quiz {
     }
 
     public void levelUp(QuizEntity quizEntity) {
-        if (quizEntity.getWordEntity().getLevel() < 10) {
+        //if (quizEntity.getWordEntity().getLevel() < 10) {
             quizEntity.getWordEntity().setLevel(quizEntity.getWordEntity().getLevel() + 1);
             table.save(quizEntity.getWordEntity());
-        }
+        //}
     }
 
     public void levelDown(QuizEntity quizEntity) {
-        if (quizEntity.getWordEntity().getLevel() > 0) {
+        //if (quizEntity.getWordEntity().getLevel() > 0) {
             quizEntity.getWordEntity().setLevel(quizEntity.getWordEntity().getLevel() - 1);
             table.save(quizEntity.getWordEntity());
-        }
+        //}
     }
 }

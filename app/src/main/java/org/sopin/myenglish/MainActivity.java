@@ -1,9 +1,12 @@
 package org.sopin.myenglish;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import org.sopin.db.ResultSet;
@@ -16,17 +19,17 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ArrayList<String> items = new ArrayList<String>();
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        ArrayList<WordEntity> items = new ArrayList<WordEntity>();
+        ArrayAdapter<WordEntity> aa = new ArrayAdapter<WordEntity>(this, android.R.layout.simple_list_item_1, items);
 
         WordTable table = WordTableFactory.createService(getBaseContext());
 
-        ResultSet result = table.fetchRecentAdded();
+        ResultSet result = table.fetchInProcess();
 
         if (result.getCount() > 0) {
             do {
                 WordEntity wordEntity = (WordEntity) result.fetch();
-                items.add(items.size(), wordEntity.getWord() + " - " + wordEntity.getTranslate());
+                items.add(items.size(), wordEntity);
             } while (result.moveToNext());
 
             aa.notifyDataSetChanged();
@@ -36,6 +39,19 @@ public class MainActivity extends Activity {
 
         ListView list = (ListView) findViewById(R.id.listView);
         list.setAdapter(aa);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                WordEntity wordItem = (WordEntity) ((ListView) findViewById(R.id.listView))
+                        .getAdapter()
+                        .getItem(position);
+
+                Intent intent = new Intent(getBaseContext(), ViewActivity.class);
+                intent.putExtra("wordId", wordItem.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

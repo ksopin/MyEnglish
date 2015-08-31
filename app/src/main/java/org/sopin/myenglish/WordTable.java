@@ -38,6 +38,13 @@ public class WordTable extends AbstractTable {
         return this.tableGateway.select(this.sql);
     }
 
+    public ResultSet fetchInProcess() {
+        this.sql.setSelection("word != '' AND translate != ''");
+        this.sql.setOrderBy(WordsDBOpenHelper.FeedEntry.COLUMN_NAME_WORD + " ASC");
+
+        return this.tableGateway.select(this.sql);
+    }
+
     public ResultSet fetchRecentAdded() {
         this.sql.setSelection("word != '' AND translate != ''");
         this.sql.setOrderBy(WordsDBOpenHelper.FeedEntry._ID + " DESC");
@@ -46,10 +53,15 @@ public class WordTable extends AbstractTable {
         return this.tableGateway.select(this.sql);
     }
 
+    public ResultSet fetchCarouselList() {
+        this.sql.setSelection("word != '' AND translate != '' AND level < 10");
+        return this.tableGateway.select(this.sql);
+    }
+
     public ResultSet fetchRand() {
         this.sql.setSelection("word != '' AND translate != '' AND level < 10");
         this.sql.setOrderBy("RANDOM()");
-        this.sql.setLimit("30");
+        this.sql.setLimit("50");
 
         return this.tableGateway.select(this.sql);
     }
