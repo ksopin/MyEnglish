@@ -9,6 +9,7 @@
     <string name="action_carousel">Carousel</string>
     <string name="action_view">Carousel</string>
     <string name="action_quiz">Quiz</string>
+    <string name="action_stats">Stats</string>
 
     <string name="action_edit">Edit</string>
     <string name="action_delete">Delete</string>
@@ -19,5 +20,6 @@
     <string name="title_activity_view">View</string>
     <string name="title_activity_quiz">Quiz</string>
     <string name="title_activity_carousel">Carousel</string>
+    <string name="title_activity_stats">Statistics</string>
 
 </resources>

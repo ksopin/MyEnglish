@@ -11,7 +11,6 @@ public class WordsDBOpenHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "MyEnglish.db";
 
-
     public static abstract class FeedEntry implements BaseColumns {
         public static final String TABLE_NAME = "words";
         public static final String COLUMN_NAME_WORD = "word";

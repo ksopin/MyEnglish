@@ -1,5 +1,8 @@
 package org.sopin.myenglish;
 
+import android.database.Cursor;
+import android.widget.Toast;
+
 import org.sopin.db.AbstractTable;
 import org.sopin.db.ResultSet;
 import org.sopin.db.Sql;
@@ -69,5 +72,33 @@ public class WordTable extends AbstractTable {
     public ResultSet fetchNotTranslated() {
         this.sql.setSelection("translate = '' OR word = ''");
         return this.tableGateway.select(this.sql);
+    }
+
+    public Integer fetchCount() {
+        Cursor result = this.tableGateway.selectCursor(
+                "SELECT COUNT(*) AS count FROM words WHERE word != '' AND translate != ''",
+                new String[]{}
+        );
+
+        result.moveToFirst();
+        Integer count = result.getInt(0);
+        result.close();
+        return count;
+    }
+
+    public Integer fetchCount(Integer level) {
+        return fetchCount(level, "=");
+    }
+
+    public Integer fetchCount(Integer level, String op) {
+        Cursor result = this.tableGateway.selectCursor(
+                "SELECT COUNT(*) AS count FROM words WHERE word != '' AND translate != '' AND level " + op + " ?",
+                new String[]{level.toString()}
+        );
+
+        result.moveToFirst();
+        Integer count = result.getInt(0);
+        result.close();
+        return count;
     }
 }

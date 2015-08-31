@@ -39,6 +39,9 @@ public class MenuHelper {
             case R.id.action_quiz:
                 intent = new Intent(context, QuizActivity.class);
                 break;
+            case R.id.action_stats:
+                intent = new Intent(context, StatsActivity.class);
+                break;
             case R.id.action_settings:
                 return true;
             default:

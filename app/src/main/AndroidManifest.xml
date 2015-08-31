@@ -45,6 +45,10 @@
             android:name=".CarouselActivity"
             android:label="@string/title_activity_carousel" >
         </activity>
+        <activity
+            android:name=".StatsActivity"
+            android:label="@string/title_activity_stats" >
+        </activity>
     </application>
 
 </manifest>

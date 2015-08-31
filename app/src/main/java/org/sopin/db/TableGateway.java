@@ -35,6 +35,10 @@ public class TableGateway {
         return resultSet;
     }
 
+    public SQLiteOpenHelper getDbHelper() {
+        return dbHelper;
+    }
+
     public ResultSet select(Sql sql) {
 
         Cursor cursor = this.dbHelper.getReadableDatabase()
@@ -48,6 +52,11 @@ public class TableGateway {
         Cursor cursor = this.dbHelper.getReadableDatabase().rawQuery(sql, args);
 
         return mapResultSet(cursor);
+    }
+
+    public Cursor selectCursor(String sql, String[] args) {
+        Cursor cursor = this.dbHelper.getReadableDatabase().rawQuery(sql, args);
+        return cursor;
     }
 
     public boolean insert(ContentValues newValues) {
