@@ -21,6 +21,8 @@ public class CarouselActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getActionBar().setHomeButtonEnabled(true);
+
         table = WordTableFactory.createService(getBaseContext());
 
         resultSet = table.fetchCarouselList();
@@ -79,7 +81,8 @@ public class CarouselActivity extends Activity {
                 break;
 
             default:
-                return false;
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

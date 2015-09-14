@@ -18,6 +18,7 @@ public class UntranslatedActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionBar().setHomeButtonEnabled(true);
         ArrayList<WordEntity> items = new ArrayList<WordEntity>();
         ArrayAdapter<WordEntity> aa = new ArrayAdapter<WordEntity>(this, android.R.layout.simple_list_item_1, items);
 

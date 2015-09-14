@@ -79,16 +79,30 @@ public class Quiz {
     }
 
     public void levelUp(QuizEntity quizEntity) {
-        //if (quizEntity.getWordEntity().getLevel() < 10) {
-            quizEntity.getWordEntity().setLevel(quizEntity.getWordEntity().getLevel() + 1);
-            table.save(quizEntity.getWordEntity());
-        //}
+        quizEntity.getWordEntity().setLevel(quizEntity.getWordEntity().getLevel() + 1);
+        table.save(quizEntity.getWordEntity());
     }
 
     public void levelDown(QuizEntity quizEntity) {
-        //if (quizEntity.getWordEntity().getLevel() > 0) {
-            quizEntity.getWordEntity().setLevel(quizEntity.getWordEntity().getLevel() - 1);
-            table.save(quizEntity.getWordEntity());
-        //}
+        quizEntity.getWordEntity().setLevel(quizEntity.getWordEntity().getLevel() - downDelta(quizEntity));
+        table.save(quizEntity.getWordEntity());
+    }
+
+    private Integer downDelta(QuizEntity quizEntity) {
+        Integer delta = 1;
+
+        if (quizEntity.getWordEntity().getLevel() > 3) {
+            delta = 2;
+        }
+
+        if (quizEntity.getWordEntity().getLevel() > 6) {
+            delta = 3;
+        }
+
+        if (quizEntity.getWordEntity().getLevel() > 8) {
+            delta = 4;
+        }
+
+        return delta;
     }
 }

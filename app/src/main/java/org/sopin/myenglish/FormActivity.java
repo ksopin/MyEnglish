@@ -17,6 +17,7 @@ public class FormActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionBar().setHomeButtonEnabled(true);
         setContentView(R.layout.activity_form);
 
         table = WordTableFactory.createService(getBaseContext());

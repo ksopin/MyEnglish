@@ -21,6 +21,7 @@ public class ViewActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionBar().setHomeButtonEnabled(true);
         setContentView(R.layout.activity_view);
         Integer wordId = (Integer)getIntent().getExtras().get("wordId");
 

@@ -45,8 +45,7 @@ public class MenuHelper {
             case R.id.action_settings:
                 return true;
             default:
-                Toast.makeText(context, itemId, Toast.LENGTH_SHORT).show();
-                return false;
+                intent = new Intent(context, MainActivity.class);
         }
 
         context.startActivity(intent);
