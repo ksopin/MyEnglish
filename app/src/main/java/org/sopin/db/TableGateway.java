@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * 
+ */
 public class TableGateway {
 
     protected SQLiteOpenHelper dbHelper;
